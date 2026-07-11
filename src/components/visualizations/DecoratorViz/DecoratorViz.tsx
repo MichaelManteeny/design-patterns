@@ -77,7 +77,7 @@ export default function DecoratorViz() {
           {chain.map((a, i) => (
             <div
               key={a.key}
-              className={`${styles.layer} ${styles.decoratorLayer} ${styles[`layer${i % 4}`]}`}
+              className={`${styles.layer} ${styles.decoratorLayer} ${(styles as Record<string, string>)[`layer${i % 4}`]}`}
             >
               <span>
                 {a.icon} + {a.label}

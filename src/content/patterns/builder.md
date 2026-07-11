@@ -1,6 +1,6 @@
 ---
 title: Builder
-description: Строитель собирает сложный объект пошагово, как конструктор Lego.
+description: "Строитель собирает сложный объект пошагово, как конструктор Lego."
 category: creational
 order: 2
 ---

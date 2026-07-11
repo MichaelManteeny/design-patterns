@@ -1,9 +1,9 @@
 import {
-  createGlobalThemeContract,
+  createThemeContract,
   createTheme as createRecipeTheme,
 } from '@vanilla-extract/css';
 
-export const vars = createGlobalThemeContract({
+export const vars = createThemeContract({
   color: {
     accentPrimary: null,
     accentSecondary: null,
@@ -120,9 +120,5 @@ export const lightThemeTokens = {
   },
 };
 
-export const darkTheme = createRecipeTheme(vars, darkThemeTokens);
-export const lightTheme = createRecipeTheme(vars, lightThemeTokens);
-
-export const createTheme = (
-  tokens: typeof darkThemeTokens | typeof lightThemeTokens,
-) => createRecipeTheme(vars, tokens);
+export const darkThemeClass = createRecipeTheme(vars, darkThemeTokens);
+export const lightThemeClass = createRecipeTheme(vars, lightThemeTokens);

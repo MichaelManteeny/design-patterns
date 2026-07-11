@@ -100,7 +100,7 @@ export const baseLayer = style({
 });
 
 export const decoratorLayer = style({
-  composes: [],
+  background: 'transparent',
 });
 
 export const layer0 = style({

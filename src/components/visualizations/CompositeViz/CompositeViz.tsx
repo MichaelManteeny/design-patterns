@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState, type ReactElement } from 'react';
 import * as styles from './CompositeViz.css';
 
 interface OrgNode {
@@ -190,7 +190,7 @@ export default function CompositeViz() {
     setComputedTotal(null);
   }, [clearTimers]);
 
-  const renderNode = (node: OrgNode, depth: number): JSX.Element => {
+  const renderNode = (node: OrgNode, depth: number): ReactElement => {
     const isVisited = visitedIds.includes(node.id);
     const isSelected = selectedId === node.id;
     const nodeClass = [
