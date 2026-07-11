@@ -1,12 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ThemeToggle from '../components/ThemeToggle/ThemeToggle.tsx';
+import { getCollection } from 'astro:content';
 import * as styles from '../styles/index.css';
+
+const patterns = await getCollection('patterns');
+const sorted = [...patterns].sort((a, b) => a.data.order - b.data.order);
+
+const groups = [
+  { id: 'creational', label: 'Порождающие', emoji: '🏭' },
+  { id: 'structural', label: 'Структурные', emoji: '🧩' },
+  { id: 'behavioral', label: 'Поведенческие', emoji: '🔁' },
+] as const;
+
+const badgeClass = (category: 'creational' | 'structural' | 'behavioral') => {
+  if (category === 'creational') return `${styles.patternCardBadge} ${styles.patternCardBadgeCreational}`;
+  if (category === 'structural') return `${styles.patternCardBadge} ${styles.patternCardBadgeStructural}`;
+  return `${styles.patternCardBadge} ${styles.patternCardBadgeBehavioral}`;
+};
 ---
 
 <Layout title="Паттерны проектирования — Интерактивный учебник для стажёров">
   <header class={styles.siteHeader}>
-    <a href="/" class={styles.brand} aria-label="На главную">
+    <a href="/design-patterns/" class={styles.brand} aria-label="На главную">
       <span class={styles.brandMark} aria-hidden="true">П</span>
       <span>Паттерны</span>
     </a>
@@ -24,28 +40,42 @@ import * as styles from '../styles/index.css';
       </p>
     </section>
 
-    <section class={styles.cards} aria-label="Разделы учебника">
-      <article class={styles.card}>
-        <div class={styles.cardIcon} aria-hidden="true">🏭</div>
-        <h3 class={styles.cardTitle}>Порождающие</h3>
-        <p class={styles.cardBody}>
-          Singleton, Factory, Builder, Prototype — управляйте созданием объектов.
-        </p>
-      </article>
-      <article class={styles.card}>
-        <div class={styles.cardIcon} aria-hidden="true">🧩</div>
-        <h3 class={styles.cardTitle}>Структурные</h3>
-        <p class={styles.cardBody}>
-          Adapter, Decorator, Proxy, Facade — собирайте классы и объекты в крупные структуры.
-        </p>
-      </article>
-      <article class={styles.card}>
-        <div class={styles.cardIcon} aria-hidden="true">🔁</div>
-        <h3 class={styles.cardTitle}>Поведенческие</h3>
-        <p class={styles.cardBody}>
-          Observer, Strategy, Command, State — распределяйте ответственность между объектами.
-        </p>
-      </article>
-    </section>
+    {groups.map((group) => {
+      const items = sorted.filter((p) => p.data.category === group.id);
+      if (items.length === 0) return null;
+      return (
+        <section class={styles.categorySection} aria-labelledby={`cat-${group.id}`}>
+          <h2 id={`cat-${group.id}`} class={styles.categoryTitle}>
+            <span aria-hidden="true">{group.emoji}</span>
+            <span>{group.label}</span>
+            <span class={styles.categoryCount}>{items.length}</span>
+          </h2>
+          <div class={styles.patternGrid}>
+            {items.map((pattern) => (
+              <a
+                class={styles.patternCardLink}
+                href={`/design-patterns/patterns/${pattern.slug}/`}
+                aria-label={`Открыть паттерн ${pattern.data.title}`}
+              >
+                <span class={badgeClass(pattern.data.category)}>
+                  {pattern.data.category === 'creational'
+                    ? 'Порождающий'
+                    : pattern.data.category === 'structural'
+                    ? 'Структурный'
+                    : 'Поведенческий'}
+                </span>
+                <h3 class={styles.patternCardTitle}>
+                  <span class={styles.patternCardOrder}>{pattern.data.order}</span>
+                  {pattern.data.title}
+                </h3>
+                <p class={styles.patternCardDescription}>
+                  {pattern.data.description}
+                </p>
+              </a>
+            ))}
+          </div>
+        </section>
+      );
+    })}
   </main>
 </Layout>

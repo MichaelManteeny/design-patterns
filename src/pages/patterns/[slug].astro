@@ -1,0 +1,234 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+import FactoryViz from '../../components/visualizations/FactoryViz/FactoryViz';
+import BuilderViz from '../../components/visualizations/BuilderViz/BuilderViz';
+import SingletonViz from '../../components/visualizations/SingletonViz/SingletonViz';
+import AdapterViz from '../../components/visualizations/AdapterViz/AdapterViz';
+import DecoratorViz from '../../components/visualizations/DecoratorViz/DecoratorViz';
+import CompositeViz from '../../components/visualizations/CompositeViz/CompositeViz';
+import ObserverViz from '../../components/visualizations/ObserverViz/ObserverViz';
+import StrategyViz from '../../components/visualizations/StrategyViz/StrategyViz';
+import StateViz from '../../components/visualizations/StateViz/StateViz';
+import CommandViz from '../../components/visualizations/CommandViz/CommandViz';
+
+export async function getStaticPaths() {
+  const patterns = await getCollection('patterns');
+  return patterns.map((pattern) => ({
+    params: { slug: pattern.slug },
+    props: { pattern },
+  }));
+}
+
+interface Props {
+  pattern: CollectionEntry<'patterns'>;
+}
+
+const { pattern } = Astro.props;
+const { Content } = await pattern.render();
+
+const CATEGORY_LABELS = {
+  creational: 'Порождающий',
+  structural: 'Структурный',
+  behavioral: 'Поведенческий',
+} as const;
+
+type VizComponent = () => unknown;
+
+const VIZ_MAP: Record<string, VizComponent> = {
+  factory: FactoryViz as VizComponent,
+  builder: BuilderViz as VizComponent,
+  singleton: SingletonViz as VizComponent,
+  adapter: AdapterViz as VizComponent,
+  decorator: DecoratorViz as VizComponent,
+  composite: CompositeViz as VizComponent,
+  observer: ObserverViz as VizComponent,
+  strategy: StrategyViz as VizComponent,
+  state: StateViz as VizComponent,
+  command: CommandViz as VizComponent,
+};
+
+const Visualization = VIZ_MAP[pattern.slug];
+---
+
+<Layout
+  title={`${pattern.data.title} — Паттерны проектирования`}
+  description={pattern.data.description}
+  currentSlug={pattern.slug}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Главная', href: '/design-patterns/' },
+      { label: pattern.data.title },
+    ]}
+  />
+
+  <article class="pattern-page">
+    <header class="pattern-header">
+      <span
+        class="category-badge"
+        data-category={pattern.data.category}
+      >
+        {CATEGORY_LABELS[pattern.data.category]}
+      </span>
+      <h1 class="pattern-title">{pattern.data.title}</h1>
+      <p class="pattern-description">{pattern.data.description}</p>
+    </header>
+
+    {Visualization && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <Visualization client:visible />
+      </section>
+    )}
+
+    <section class="content">
+      <Content />
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .pattern-page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: var(--spacing-spacing6) var(--spacing-spacing5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-spacing6);
+  }
+
+  .pattern-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-spacing3);
+  }
+
+  .category-badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border: 1px solid var(--color-border);
+    color: var(--color-textMuted);
+    background: var(--color-surfaceBgAlt);
+  }
+
+  .category-badge[data-category='creational'] {
+    color: var(--color-accentPrimary);
+    border-color: var(--color-accentPrimary);
+  }
+
+  .category-badge[data-category='structural'] {
+    color: var(--color-success);
+    border-color: var(--color-success);
+  }
+
+  .category-badge[data-category='behavioral'] {
+    color: var(--color-warning);
+    border-color: var(--color-warning);
+  }
+
+  .pattern-title {
+    margin: 0;
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-textStrong);
+  }
+
+  .pattern-description {
+    margin: 0;
+    font-size: clamp(16px, 2vw, 20px);
+    line-height: 1.5;
+    color: var(--color-textMuted);
+  }
+
+  .visualization {
+    border-radius: var(--radii-radiiLg);
+    background: var(--color-surfaceCard);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-spacing4);
+  }
+
+  .content {
+    color: var(--color-text);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  .content :global(h2) {
+    margin: var(--spacing-spacing6) 0 var(--spacing-spacing3);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-textStrong);
+    letter-spacing: -0.01em;
+  }
+
+  .content :global(h3) {
+    margin: var(--spacing-spacing5) 0 var(--spacing-spacing2);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-textStrong);
+  }
+
+  .content :global(p) {
+    margin: 0 0 var(--spacing-spacing3);
+  }
+
+  .content :global(ul),
+  .content :global(ol) {
+    margin: 0 0 var(--spacing-spacing3);
+    padding-left: var(--spacing-spacing4);
+  }
+
+  .content :global(li) {
+    margin-bottom: var(--spacing-spacing1);
+  }
+
+  .content :global(pre) {
+    margin: var(--spacing-spacing4) 0;
+    padding: var(--spacing-spacing4);
+    background: var(--color-surfaceBg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radii-radiiMd);
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .content :global(code) {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .content :global(:not(pre) > code) {
+    padding: 2px 6px;
+    background: var(--color-surfaceBgAlt);
+    border-radius: var(--radii-radiiSm);
+    font-size: 13px;
+    color: var(--color-accentPrimary);
+  }
+
+  .content :global(strong) {
+    color: var(--color-textStrong);
+    font-weight: 700;
+  }
+
+  @media (max-width: 640px) {
+    .pattern-page {
+      padding: var(--spacing-spacing4) var(--spacing-spacing3);
+      gap: var(--spacing-spacing5);
+    }
+
+    .visualization {
+      padding: var(--spacing-spacing3);
+    }
+  }
+</style>
