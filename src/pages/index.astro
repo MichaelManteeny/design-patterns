@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ThemeToggle from '../components/ThemeToggle/ThemeToggle.tsx';
+import * as styles from '../styles/index.css';
+---
+
+<Layout title="Паттерны проектирования — Интерактивный учебник для стажёров">
+  <header class={styles.siteHeader}>
+    <a href="/" class={styles.brand} aria-label="На главную">
+      <span class={styles.brandMark} aria-hidden="true">П</span>
+      <span>Паттерны</span>
+    </a>
+    <ThemeToggle client:load />
+  </header>
+
+  <main class={styles.main}>
+    <section class={styles.hero}>
+      <h1 class={styles.title}>
+        Паттерны <span class={styles.titleAccent}>проектирования</span>
+      </h1>
+      <p class={styles.subtitle}>
+        Интерактивный учебник для стажёров — порождающие, структурные и поведенческие шаблоны
+        с живыми примерами на TypeScript и React.
+      </p>
+    </section>
+
+    <section class={styles.cards} aria-label="Разделы учебника">
+      <article class={styles.card}>
+        <div class={styles.cardIcon} aria-hidden="true">🏭</div>
+        <h3 class={styles.cardTitle}>Порождающие</h3>
+        <p class={styles.cardBody}>
+          Singleton, Factory, Builder, Prototype — управляйте созданием объектов.
+        </p>
+      </article>
+      <article class={styles.card}>
+        <div class={styles.cardIcon} aria-hidden="true">🧩</div>
+        <h3 class={styles.cardTitle}>Структурные</h3>
+        <p class={styles.cardBody}>
+          Adapter, Decorator, Proxy, Facade — собирайте классы и объекты в крупные структуры.
+        </p>
+      </article>
+      <article class={styles.card}>
+        <div class={styles.cardIcon} aria-hidden="true">🔁</div>
+        <h3 class={styles.cardTitle}>Поведенческие</h3>
+        <p class={styles.cardBody}>
+          Observer, Strategy, Command, State — распределяйте ответственность между объектами.
+        </p>
+      </article>
+    </section>
+  </main>
+</Layout>

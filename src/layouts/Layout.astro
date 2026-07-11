@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import '../styles/theme.css';
+import { darkThemeClass, lightThemeClass } from '../styles/theme.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Интерактивный учебник по шаблонам проектирования' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru" class={darkThemeClass}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <script is:inline define:vars={{ darkThemeClass, lightThemeClass }}>
+      (function () {
+        try {
+          var stored = window.localStorage.getItem('theme');
+          var theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
+          var cls = theme === 'light' ? lightThemeClass : darkThemeClass;
+          var root = document.documentElement;
+          root.classList.remove(darkThemeClass, lightThemeClass);
+          root.classList.add(cls);
+        } catch (e) {
+          var root = document.documentElement;
+          root.classList.remove(lightThemeClass);
+          root.classList.add(darkThemeClass);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
