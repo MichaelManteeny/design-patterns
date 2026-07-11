@@ -34,23 +34,6 @@ const CATEGORY_LABELS = {
   structural: 'Структурный',
   behavioral: 'Поведенческий',
 } as const;
-
-type VizComponent = () => unknown;
-
-const VIZ_MAP: Record<string, VizComponent> = {
-  factory: FactoryViz as VizComponent,
-  builder: BuilderViz as VizComponent,
-  singleton: SingletonViz as VizComponent,
-  adapter: AdapterViz as VizComponent,
-  decorator: DecoratorViz as VizComponent,
-  composite: CompositeViz as VizComponent,
-  observer: ObserverViz as VizComponent,
-  strategy: StrategyViz as VizComponent,
-  state: StateViz as VizComponent,
-  command: CommandViz as VizComponent,
-};
-
-const Visualization = VIZ_MAP[pattern.slug];
 ---
 
 <Layout
@@ -77,9 +60,54 @@ const Visualization = VIZ_MAP[pattern.slug];
       <p class="pattern-description">{pattern.data.description}</p>
     </header>
 
-    {Visualization && (
+    {pattern.slug === 'factory' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <Visualization client:visible />
+        <FactoryViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'builder' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <BuilderViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'singleton' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <SingletonViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'adapter' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <AdapterViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'decorator' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <DecoratorViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'composite' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <CompositeViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'observer' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <ObserverViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'strategy' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <StrategyViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'state' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <StateViz client:visible />
+      </section>
+    )}
+    {pattern.slug === 'command' && (
+      <section class="visualization" aria-label="Интерактивная визуализация">
+        <CommandViz client:visible />
       </section>
     )}
 
