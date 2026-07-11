@@ -2,13 +2,20 @@
 import '../styles/global.css';
 import '../styles/theme.css';
 import { darkThemeClass, lightThemeClass } from '../styles/theme.css';
+import Sidebar from '../components/Sidebar/Sidebar.astro';
+import ThemeToggle from '../components/ThemeToggle/ThemeToggle.tsx';
 
 interface Props {
   title: string;
   description?: string;
+  currentSlug?: string;
 }
 
-const { title, description = 'Интерактивный учебник по шаблонам проектирования' } = Astro.props;
+const {
+  title,
+  description = 'Интерактивный учебник по шаблонам проектирования',
+  currentSlug,
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -37,6 +44,51 @@ const { title, description = 'Интерактивный учебник по ш�
     </script>
   </head>
   <body>
-    <slot />
+    <div class="app">
+      <Sidebar currentSlug={currentSlug} />
+      <div class="main">
+        <header class="header">
+          <ThemeToggle client:load />
+        </header>
+        <main>
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <style is:global>
+      .app {
+        display: flex;
+        align-items: flex-start;
+        min-height: 100vh;
+      }
+
+      .main {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: var(--spacing-spacing3);
+        padding: var(--spacing-spacing3) var(--spacing-spacing5);
+        border-bottom: 1px solid var(--color-border);
+        background: var(--color-surfaceBgAlt);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(8px);
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          padding: var(--spacing-spacing2) var(--spacing-spacing3);
+        }
+      }
+    </style>
   </body>
 </html>

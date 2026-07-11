@@ -1,0 +1,184 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const allPatterns = await getCollection('patterns');
+const sorted = [...allPatterns].sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const groups: { id: 'creational' | 'structural' | 'behavioral'; label: string }[] = [
+  { id: 'creational', label: 'Порождающие' },
+  { id: 'structural', label: 'Структурные' },
+  { id: 'behavioral', label: 'Поведенческие' },
+];
+---
+
+<aside class="sidebar" aria-label="Навигация по паттернам">
+  <div class="brand">
+    <a href="/design-patterns/" class="brand-link" aria-label="На главную">
+      <span class="brand-mark" aria-hidden="true">П</span>
+      <span class="brand-text">Паттерны</span>
+    </a>
+  </div>
+
+  <nav class="nav">
+    {groups.map((group) => {
+      const items = sorted.filter((p) => p.data.category === group.id);
+      if (items.length === 0) return null;
+      return (
+        <section class="group">
+          <h3 class="group-title">{group.label}</h3>
+          <ul class="group-list">
+            {items.map((pattern) => {
+              const href = `/design-patterns/patterns/${pattern.slug}/`;
+              const isActive = currentSlug === pattern.slug;
+              return (
+                <li>
+                  <a
+                    href={href}
+                    class:list={['link', { active: isActive }]}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    <span class="order">{pattern.data.order}</span>
+                    <span class="label">{pattern.data.title}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      );
+    })}
+  </nav>
+</aside>
+
+<style>
+  .sidebar {
+    width: 240px;
+    flex-shrink: 0;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    background: var(--color-surfaceBgAlt);
+    border-right: 1px solid var(--color-border);
+    padding: var(--spacing-spacing4) 0;
+    box-sizing: border-box;
+  }
+
+  .brand {
+    padding: 0 var(--spacing-spacing4);
+    margin-bottom: var(--spacing-spacing5);
+  }
+
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-spacing2);
+    color: var(--color-textStrong);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .brand-link:hover {
+    color: var(--color-accentPrimary);
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radii-radiiSm);
+    background: linear-gradient(
+      135deg,
+      var(--color-accentPrimary),
+      var(--color-accentSecondary)
+    );
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: var(--shadow-shadowSm);
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-spacing4);
+  }
+
+  .group-title {
+    margin: 0 0 var(--spacing-spacing2);
+    padding: 0 var(--spacing-spacing4);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-textMuted);
+  }
+
+  .group-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-spacing2);
+    padding: var(--spacing-spacing2) var(--spacing-spacing4);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.4;
+    border-left: 2px solid transparent;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .link:hover {
+    background: var(--color-surfaceCard);
+    color: var(--color-textStrong);
+  }
+
+  .link.active {
+    background: var(--color-surfaceCard);
+    color: var(--color-accentPrimary);
+    border-left-color: var(--color-accentPrimary);
+    font-weight: 600;
+  }
+
+  .order {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: var(--radii-radiiSm);
+    background: var(--color-surfaceCard);
+    color: var(--color-textMuted);
+    font-size: 11px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .link.active .order {
+    background: var(--color-accentPrimary);
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+  }
+</style>
