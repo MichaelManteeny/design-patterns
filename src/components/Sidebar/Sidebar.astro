@@ -12,28 +12,53 @@ const sorted = [...allPatterns].sort(
   (a, b) => a.data.order - b.data.order,
 );
 
-const groups: { id: 'creational' | 'structural' | 'behavioral'; label: string }[] = [
-  { id: 'creational', label: 'Порождающие' },
-  { id: 'structural', label: 'Структурные' },
-  { id: 'behavioral', label: 'Поведенческие' },
+const groups: { id: 'creational' | 'structural' | 'behavioral'; label: string; emoji: string }[] = [
+  { id: 'creational', label: 'Порождающие', emoji: '🏭' },
+  { id: 'structural', label: 'Структурные', emoji: '🧩' },
+  { id: 'behavioral', label: 'Поведенческие', emoji: '🔁' },
 ];
 ---
 
-<aside class="sidebar" aria-label="Навигация по паттернам">
-  <div class="brand">
-    <a href="/design-patterns/" class="brand-link" aria-label="На главную">
-      <span class="brand-mark" aria-hidden="true">П</span>
-      <span class="brand-text">Паттерны</span>
-    </a>
+<aside class="sidebar" id="primary-nav" aria-label="Навигация по паттернам">
+  <div class="sidebar-header">
+    <span class="sidebar-eyebrow">Каталог</span>
+    <button
+      type="button"
+      class="close-btn"
+      data-menu-close
+      aria-label="Закрыть навигацию"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path
+          d="M6 6l12 12M6 18L18 6"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
   </div>
 
   <nav class="nav">
+    <a
+      href="/design-patterns/"
+      class:list={['overview-link', { active: !currentSlug }]}
+      aria-current={!currentSlug ? 'page' : undefined}
+    >
+      <span class="overview-icon" aria-hidden="true">⌂</span>
+      <span>Все паттерны</span>
+    </a>
+
     {groups.map((group) => {
       const items = sorted.filter((p) => p.data.category === group.id);
       if (items.length === 0) return null;
       return (
-        <section class="group">
-          <h3 class="group-title">{group.label}</h3>
+        <section class={`group group-${group.id}`}>
+          <h3 class="group-title">
+            <span class="group-emoji" aria-hidden="true">{group.emoji}</span>
+            <span>{group.label}</span>
+            <span class="group-count">{items.length}</span>
+          </h3>
           <ul class="group-list">
             {items.map((pattern) => {
               const href = `/design-patterns/patterns/${pattern.slug}/`;
@@ -44,9 +69,11 @@ const groups: { id: 'creational' | 'structural' | 'behavioral'; label: string }[
                     href={href}
                     class:list={['link', { active: isActive }]}
                     aria-current={isActive ? 'page' : undefined}
+                    data-menu-close
                   >
-                    <span class="order">{pattern.data.order}</span>
-                    <span class="label">{pattern.data.title}</span>
+                    <span class="link-order">{pattern.data.order}</span>
+                    <span class="link-label">{pattern.data.title}</span>
+                    <span class="link-arrow" aria-hidden="true">→</span>
                   </a>
                 </li>
               );
@@ -56,11 +83,16 @@ const groups: { id: 'creational' | 'structural' | 'behavioral'; label: string }[
       );
     })}
   </nav>
+
+  <div class="sidebar-footer">
+    <span class="footer-dot" aria-hidden="true"></span>
+    <span>10 паттернов</span>
+  </div>
 </aside>
 
 <style>
   .sidebar {
-    width: 240px;
+    width: var(--layout-sidebarWidth);
     flex-shrink: 0;
     height: 100vh;
     position: sticky;
@@ -70,58 +102,115 @@ const groups: { id: 'creational' | 'structural' | 'behavioral'; label: string }[
     border-right: 1px solid var(--color-border);
     padding: var(--spacing-spacing4) 0;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 30;
   }
 
-  .brand {
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 0 var(--spacing-spacing4);
     margin-bottom: var(--spacing-spacing5);
   }
 
-  .brand-link {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-spacing2);
-    color: var(--color-textStrong);
-    text-decoration: none;
+  .sidebar-eyebrow {
+    font-family: var(--font-display);
+    font-size: 11px;
     font-weight: 700;
-    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-textMuted);
   }
 
-  .brand-link:hover {
-    color: var(--color-accentPrimary);
-  }
-
-  .brand-mark {
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radii-radiiSm);
-    background: linear-gradient(
-      135deg,
-      var(--color-accentPrimary),
-      var(--color-accentSecondary)
-    );
-    display: inline-flex;
+  .close-btn {
+    display: none;
+    width: 36px;
+    height: 36px;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
-    font-weight: 800;
-    font-size: 14px;
-    box-shadow: var(--shadow-shadowSm);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radii-radiiSm);
+    color: var(--color-text);
+    cursor: pointer;
+    margin-left: var(--spacing-spacing2);
+  }
+  .close-btn:hover {
+    background: var(--color-surfaceCard);
+    border-color: var(--color-borderHover);
+  }
+  .close-btn svg {
+    width: 18px;
+    height: 18px;
   }
 
   .nav {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-spacing4);
+    gap: var(--spacing-spacing5);
+    flex: 1;
+    padding: 0 var(--spacing-spacing2);
+  }
+
+  .overview-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-spacing2);
+    padding: var(--spacing-spacing2) var(--spacing-spacing3);
+    margin: 0 var(--spacing-spacing2);
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: var(--radii-radiiSm);
+    transition: background-color var(--motion-dur) var(--motion-ease),
+      color var(--motion-dur) var(--motion-ease);
+  }
+  .overview-link:hover {
+    background: var(--color-surfaceCard);
+    color: var(--color-textStrong);
+  }
+  .overview-link.active {
+    background: var(--color-surfaceCard);
+    color: var(--color-textStrong);
+  }
+  .overview-icon {
+    font-size: 16px;
+    color: var(--color-accentPrimary);
   }
 
   .group-title {
     margin: 0 0 var(--spacing-spacing2);
-    padding: 0 var(--spacing-spacing4);
+    padding: 0 var(--spacing-spacing3);
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    color: var(--color-textMuted);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-spacing1);
+  }
+  .group-emoji {
+    font-size: 13px;
+    line-height: 1;
+  }
+  .group-count {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: var(--radii-radiiFull);
+    background: var(--color-surfaceCard);
+    border: 1px solid var(--color-border);
+    font-size: 10px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
     color: var(--color-textMuted);
   }
 
@@ -129,19 +218,26 @@ const groups: { id: 'creational' | 'structural' | 'behavioral'; label: string }[
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .link {
+    position: relative;
     display: flex;
     align-items: center;
     gap: var(--spacing-spacing2);
-    padding: var(--spacing-spacing2) var(--spacing-spacing4);
+    padding: var(--spacing-spacing2) var(--spacing-spacing3);
     color: var(--color-text);
     text-decoration: none;
-    font-size: 14px;
-    line-height: 1.4;
-    border-left: 2px solid transparent;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    font-size: 13.5px;
+    line-height: 1.3;
+    font-weight: 500;
+    border-radius: var(--radii-radiiSm);
+    transition: background-color var(--motion-dur) var(--motion-ease),
+      color var(--motion-dur) var(--motion-ease),
+      transform var(--motion-durFast) var(--motion-ease);
   }
 
   .link:hover {
@@ -149,36 +245,117 @@ const groups: { id: 'creational' | 'structural' | 'behavioral'; label: string }[
     color: var(--color-textStrong);
   }
 
-  .link.active {
-    background: var(--color-surfaceCard);
-    color: var(--color-accentPrimary);
-    border-left-color: var(--color-accentPrimary);
-    font-weight: 600;
+  .link:hover .link-arrow {
+    transform: translateX(2px);
+    opacity: 1;
   }
 
-  .order {
+  .link.active {
+    background: var(--color-surfaceCard);
+    color: var(--color-textStrong);
+    font-weight: 700;
+    box-shadow: var(--shadow-shadowXs);
+  }
+  .link.active::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 6px;
+    bottom: 6px;
+    width: 3px;
+    border-radius: 0 var(--radii-radiiXs) var(--radii-radiiXs) 0;
+    background: linear-gradient(
+      180deg,
+      var(--color-accentPrimary),
+      var(--color-accentSecondary)
+    );
+  }
+
+  .link-order {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-width: 22px;
     height: 22px;
     padding: 0 6px;
-    border-radius: var(--radii-radiiSm);
-    background: var(--color-surfaceCard);
+    border-radius: var(--radii-radiiXs);
+    background: var(--color-surfaceBg);
     color: var(--color-textMuted);
-    font-size: 11px;
+    border: 1px solid var(--color-border);
+    font-size: 10.5px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    transition: all var(--motion-dur) var(--motion-ease);
   }
-
-  .link.active .order {
-    background: var(--color-accentPrimary);
+  .link.active .link-order {
+    background: linear-gradient(
+      135deg,
+      var(--color-accentPrimary),
+      var(--color-accentSecondary)
+    );
     color: #ffffff;
+    border-color: transparent;
   }
 
-  @media (max-width: 768px) {
+  .link-label {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .link-arrow {
+    color: var(--color-accentPrimary);
+    opacity: 0;
+    transition: all var(--motion-dur) var(--motion-ease);
+    font-weight: 600;
+  }
+
+  /* Accent bar tints based on category */
+  .group-creational .link.active::before {
+    background: linear-gradient(180deg, #ff7849, #fb923c);
+  }
+  .group-structural .link.active::before {
+    background: linear-gradient(180deg, #2dd4bf, #0d9488);
+  }
+  .group-behavioral .link.active::before {
+    background: linear-gradient(180deg, #a78bfa, #7c3aed);
+  }
+
+  .sidebar-footer {
+    margin-top: var(--spacing-spacing4);
+    padding: var(--spacing-spacing3) var(--spacing-spacing4);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-textMuted);
+    font-size: 11.5px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-spacing1);
+  }
+
+  .footer-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-success);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-success) 30%, transparent);
+  }
+
+  /* Mobile: sidebar becomes a slide-in drawer */
+  @media (max-width: 900px) {
     .sidebar {
-      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: min(320px, 86vw);
+      transform: translateX(-100%);
+      transition: transform var(--motion-durSlow) var(--motion-easeOut);
+      border-right: 1px solid var(--color-border);
+    }
+    html[data-menu-open='true'] .sidebar {
+      transform: translateX(0);
+    }
+    .close-btn {
+      display: inline-flex;
     }
   }
 </style>
