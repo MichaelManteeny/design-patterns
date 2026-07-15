@@ -146,9 +146,9 @@ const categoryLabel: Record<Category, string> = {
 <style>
   /* ========================================================== Hero */
   .hero {
-    max-width: var(--layout-maxWidth);
+    max-width: var(--layout-max-width);
     margin: 0 auto;
-    padding: var(--spacing-spacing7) var(--spacing-spacing5) var(--spacing-spacing6);
+    padding: var(--spacing-7) var(--spacing-5) var(--spacing-6);
     text-align: left;
     position: relative;
   }
@@ -162,7 +162,7 @@ const categoryLabel: Record<Category, string> = {
     height: 80%;
     background: radial-gradient(
       circle at 30% 30%,
-      color-mix(in oklab, var(--color-accentPrimary) 25%, transparent) 0%,
+      color-mix(in oklab, var(--color-accent-primary) 25%, transparent) 0%,
       transparent 60%
     );
     pointer-events: none;
@@ -178,23 +178,23 @@ const categoryLabel: Record<Category, string> = {
   .hero-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-spacing1);
+    gap: var(--spacing-1);
     padding: 6px 12px;
-    background: color-mix(in oklab, var(--color-accentPrimary) 12%, transparent);
-    border: 1px solid color-mix(in oklab, var(--color-accentPrimary) 35%, transparent);
-    border-radius: var(--radii-radiiFull);
+    background: color-mix(in oklab, var(--color-accent-primary) 12%, transparent);
+    border: 1px solid color-mix(in oklab, var(--color-accent-primary) 35%, transparent);
+    border-radius: var(--radii-full);
     font-size: 12.5px;
     font-weight: 600;
-    color: var(--color-accentPrimary);
-    margin-bottom: var(--spacing-spacing4);
+    color: var(--color-accent-primary);
+    margin-bottom: var(--spacing-4);
   }
 
   .hero-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--color-accentPrimary);
-    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accentPrimary) 30%, transparent);
+    background: var(--color-accent-primary);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent-primary) 30%, transparent);
   }
 
   .hero-title {
@@ -203,16 +203,16 @@ const categoryLabel: Record<Category, string> = {
     font-weight: 800;
     line-height: 1.02;
     letter-spacing: -0.035em;
-    color: var(--color-textStrong);
+    color: var(--color-text-strong);
     max-width: 14ch;
   }
 
   .hero-accent {
     background: linear-gradient(
       135deg,
-      var(--color-accentPrimary) 0%,
-      var(--color-accentSecondary) 50%,
-      var(--color-accentDeep) 100%
+      var(--color-accent-primary) 0%,
+      var(--color-accent-secondary) 50%,
+      var(--color-accent-deep) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -221,36 +221,36 @@ const categoryLabel: Record<Category, string> = {
   }
 
   .hero-subtitle {
-    margin: var(--spacing-spacing3) 0 0;
+    margin: var(--spacing-3) 0 0;
     max-width: 56ch;
     font-size: clamp(16px, 2vw, 19px);
     line-height: 1.55;
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
   }
 
   .hero-stats {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--spacing-spacing3);
-    margin-top: var(--spacing-spacing5);
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-5);
   }
 
   .stat {
     display: inline-flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: var(--spacing-spacing2) var(--spacing-spacing4);
+    padding: var(--spacing-2) var(--spacing-4);
     border: 1px solid var(--color-border);
-    background: var(--color-surfaceCard);
-    border-radius: var(--radii-radiiMd);
+    background: var(--color-surface-card);
+    border-radius: var(--radii-md);
     min-width: 96px;
     transition:
       border-color var(--motion-dur) var(--motion-ease),
-      transform var(--motion-durFast) var(--motion-ease);
+      transform var(--motion-dur-fast) var(--motion-ease);
   }
 
   .stat:hover {
-    border-color: var(--color-borderHover);
+    border-color: var(--color-border-hover);
     transform: translateY(-1px);
   }
 
@@ -259,13 +259,13 @@ const categoryLabel: Record<Category, string> = {
     font-size: 22px;
     font-weight: 800;
     letter-spacing: -0.02em;
-    color: var(--color-textStrong);
+    color: var(--color-text-strong);
     line-height: 1;
   }
 
   .stat-label {
     font-size: 11.5px;
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     font-weight: 600;
@@ -275,13 +275,13 @@ const categoryLabel: Record<Category, string> = {
   /* ========================================================== Section divider */
 
   .section-divider {
-    max-width: var(--layout-maxWidth);
+    max-width: var(--layout-max-width);
     margin: 0 auto;
-    padding: 0 var(--spacing-spacing5);
+    padding: 0 var(--spacing-5);
     display: flex;
     align-items: center;
-    gap: var(--spacing-spacing3);
-    color: var(--color-textMuted);
+    gap: var(--spacing-3);
+    color: var(--color-text-muted);
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -299,24 +299,24 @@ const categoryLabel: Record<Category, string> = {
   /* ========================================================== Category sections */
 
   .category-section {
-    max-width: var(--layout-maxWidth);
-    margin: var(--spacing-spacing6) auto;
-    padding: 0 var(--spacing-spacing5);
+    max-width: var(--layout-max-width);
+    margin: var(--spacing-6) auto;
+    padding: 0 var(--spacing-5);
   }
 
   .category-header {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    gap: var(--spacing-spacing3);
-    margin-bottom: var(--spacing-spacing5);
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-5);
   }
 
   .category-emoji {
     width: 56px;
     height: 56px;
-    border-radius: var(--radii-radiiMd);
-    background: var(--color-surfaceCard);
+    border-radius: var(--radii-md);
+    background: var(--color-surface-card);
     border: 1px solid var(--color-border);
     display: inline-flex;
     align-items: center;
@@ -326,16 +326,16 @@ const categoryLabel: Record<Category, string> = {
   }
 
   .category-creational .category-emoji {
-    background: color-mix(in oklab, var(--color-accentPrimary) 12%, var(--color-surfaceCard));
-    border-color: color-mix(in oklab, var(--color-accentPrimary) 30%, var(--color-border));
+    background: color-mix(in oklab, var(--color-accent-primary) 12%, var(--color-surface-card));
+    border-color: color-mix(in oklab, var(--color-accent-primary) 30%, var(--color-border));
   }
   .category-structural .category-emoji {
-    background: color-mix(in oklab, var(--color-accentTeal) 12%, var(--color-surfaceCard));
-    border-color: color-mix(in oklab, var(--color-accentTeal) 30%, var(--color-border));
+    background: color-mix(in oklab, var(--color-accent-teal) 12%, var(--color-surface-card));
+    border-color: color-mix(in oklab, var(--color-accent-teal) 30%, var(--color-border));
   }
   .category-behavioral .category-emoji {
-    background: color-mix(in oklab, var(--color-accentViolet) 12%, var(--color-surfaceCard));
-    border-color: color-mix(in oklab, var(--color-accentViolet) 30%, var(--color-border));
+    background: color-mix(in oklab, var(--color-accent-violet) 12%, var(--color-surface-card));
+    border-color: color-mix(in oklab, var(--color-accent-violet) 30%, var(--color-border));
   }
 
   .category-meta {
@@ -348,14 +348,14 @@ const categoryLabel: Record<Category, string> = {
     font-family: var(--font-display);
     font-size: clamp(20px, 2.5vw, 26px);
     font-weight: 800;
-    color: var(--color-textStrong);
+    color: var(--color-text-strong);
     letter-spacing: -0.02em;
   }
 
   .category-desc {
     margin: 4px 0 0;
     font-size: 14px;
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
     line-height: 1.5;
   }
 
@@ -367,10 +367,10 @@ const categoryLabel: Record<Category, string> = {
     height: 28px;
     padding: 0 10px;
     margin-left: auto;
-    border-radius: var(--radii-radiiFull);
-    background: var(--color-surfaceCard);
+    border-radius: var(--radii-full);
+    background: var(--color-surface-card);
     border: 1px solid var(--color-border);
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
     font-size: 12px;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
@@ -389,21 +389,21 @@ const categoryLabel: Record<Category, string> = {
   }
 
   .pattern-card {
-    --card-accent: var(--color-accentPrimary);
+    --card-accent: var(--color-accent-primary);
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-spacing4);
-    background: var(--color-surfaceCard);
+    padding: var(--spacing-4);
+    background: var(--color-surface-card);
     border: 1px solid var(--color-border);
-    border-radius: var(--radii-radiiLg);
+    border-radius: var(--radii-lg);
     color: inherit;
     text-decoration: none;
     overflow: hidden;
     isolation: isolate;
     transition:
       border-color var(--motion-dur) var(--motion-ease),
-      transform var(--motion-dur) var(--motion-easeOut),
+      transform var(--motion-dur) var(--motion-ease-out),
       box-shadow var(--motion-dur) var(--motion-ease),
       background-color var(--motion-dur) var(--motion-ease);
   }
@@ -431,27 +431,27 @@ const categoryLabel: Record<Category, string> = {
       transparent 60%
     );
     opacity: 0;
-    transition: opacity var(--motion-durSlow) var(--motion-ease);
+    transition: opacity var(--motion-dur-slow) var(--motion-ease);
     pointer-events: none;
     z-index: 0;
   }
 
   .pattern-card[data-category='creational'] {
-    --card-accent: var(--color-accentPrimary);
+    --card-accent: var(--color-accent-primary);
   }
   .pattern-card[data-category='structural'] {
-    --card-accent: var(--color-accentTeal);
+    --card-accent: var(--color-accent-teal);
   }
   .pattern-card[data-category='behavioral'] {
-    --card-accent: var(--color-accentViolet);
+    --card-accent: var(--color-accent-violet);
   }
 
   .pattern-card:hover,
   .pattern-card:focus-visible {
     border-color: color-mix(in oklab, var(--card-accent) 40%, var(--color-border));
-    background: var(--color-surfaceCardHover);
+    background: var(--color-surface-card-hover);
     transform: translateY(-3px);
-    box-shadow: var(--shadow-shadowLg);
+    box-shadow: var(--shadow-lg);
   }
   .pattern-card:hover::before,
   .pattern-card:focus-visible::before,
@@ -460,7 +460,7 @@ const categoryLabel: Record<Category, string> = {
     opacity: 1;
   }
   .pattern-card:focus-visible {
-    outline: 2px solid var(--color-accentPrimary);
+    outline: 2px solid var(--color-accent-primary);
     outline-offset: 4px;
   }
 
@@ -468,7 +468,7 @@ const categoryLabel: Record<Category, string> = {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--spacing-spacing3);
+    margin-bottom: var(--spacing-3);
     position: relative;
     z-index: 2;
   }
@@ -477,30 +477,30 @@ const categoryLabel: Record<Category, string> = {
     display: inline-flex;
     align-items: center;
     padding: 4px 10px;
-    border-radius: var(--radii-radiiFull);
+    border-radius: var(--radii-full);
     font-size: 10.5px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.07em;
-    background: var(--color-surfaceBgAlt);
+    background: var(--color-surface-bg-alt);
     border: 1px solid var(--color-border);
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
     transition: all var(--motion-dur) var(--motion-ease);
   }
   .tag-creational {
-    color: var(--color-accentPrimary);
-    border-color: color-mix(in oklab, var(--color-accentPrimary) 40%, transparent);
-    background: color-mix(in oklab, var(--color-accentPrimary) 10%, transparent);
+    color: var(--color-accent-primary);
+    border-color: color-mix(in oklab, var(--color-accent-primary) 40%, transparent);
+    background: color-mix(in oklab, var(--color-accent-primary) 10%, transparent);
   }
   .tag-structural {
-    color: var(--color-accentTeal);
-    border-color: color-mix(in oklab, var(--color-accentTeal) 40%, transparent);
-    background: color-mix(in oklab, var(--color-accentTeal) 10%, transparent);
+    color: var(--color-accent-teal);
+    border-color: color-mix(in oklab, var(--color-accent-teal) 40%, transparent);
+    background: color-mix(in oklab, var(--color-accent-teal) 10%, transparent);
   }
   .tag-behavioral {
-    color: var(--color-accentViolet);
-    border-color: color-mix(in oklab, var(--color-accentViolet) 40%, transparent);
-    background: color-mix(in oklab, var(--color-accentViolet) 10%, transparent);
+    color: var(--color-accent-violet);
+    border-color: color-mix(in oklab, var(--color-accent-violet) 40%, transparent);
+    background: color-mix(in oklab, var(--color-accent-violet) 10%, transparent);
   }
 
   .pattern-card-number {
@@ -510,10 +510,10 @@ const categoryLabel: Record<Category, string> = {
     min-width: 32px;
     height: 32px;
     padding: 0 10px;
-    border-radius: var(--radii-radiiSm);
-    background: var(--color-surfaceBgAlt);
+    border-radius: var(--radii-sm);
+    background: var(--color-surface-bg-alt);
     border: 1px solid var(--color-border);
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
     font-family: var(--font-display);
     font-size: 13px;
     font-weight: 800;
@@ -527,11 +527,11 @@ const categoryLabel: Record<Category, string> = {
   }
 
   .pattern-card-title {
-    margin: 0 0 var(--spacing-spacing1);
+    margin: 0 0 var(--spacing-1);
     font-family: var(--font-display);
     font-size: 19px;
     font-weight: 700;
-    color: var(--color-textStrong);
+    color: var(--color-text-strong);
     letter-spacing: -0.015em;
     line-height: 1.3;
     position: relative;
@@ -539,10 +539,10 @@ const categoryLabel: Record<Category, string> = {
   }
 
   .pattern-card-description {
-    margin: 0 0 var(--spacing-spacing4);
+    margin: 0 0 var(--spacing-4);
     font-size: 14px;
     line-height: 1.55;
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
     position: relative;
     z-index: 2;
     /* clamp to 4 lines for grid harmony */
@@ -566,7 +566,7 @@ const categoryLabel: Record<Category, string> = {
   .pattern-card-cta svg {
     width: 14px;
     height: 14px;
-    transition: transform var(--motion-dur) var(--motion-easeOut);
+    transition: transform var(--motion-dur) var(--motion-ease-out);
   }
   .pattern-card:hover .pattern-card-cta svg {
     transform: translateX(3px);
@@ -576,13 +576,13 @@ const categoryLabel: Record<Category, string> = {
 
   @media (max-width: 720px) {
     .hero {
-      padding: var(--spacing-spacing5) var(--spacing-spacing3) var(--spacing-spacing4);
+      padding: var(--spacing-5) var(--spacing-3) var(--spacing-4);
     }
     .hero-stats {
-      gap: var(--spacing-spacing2);
+      gap: var(--spacing-2);
     }
     .stat {
-      padding: var(--spacing-spacing1) var(--spacing-spacing3);
+      padding: var(--spacing-1) var(--spacing-3);
       min-width: 76px;
       flex: 1;
     }
@@ -591,11 +591,11 @@ const categoryLabel: Record<Category, string> = {
     }
     .section-divider,
     .category-section {
-      padding-left: var(--spacing-spacing3);
-      padding-right: var(--spacing-spacing3);
+      padding-left: var(--spacing-3);
+      padding-right: var(--spacing-3);
     }
     .category-header {
-      gap: var(--spacing-spacing2);
+      gap: var(--spacing-2);
     }
     .category-emoji {
       width: 48px;
@@ -604,7 +604,7 @@ const categoryLabel: Record<Category, string> = {
     }
     .pattern-grid {
       grid-template-columns: 1fr;
-      gap: var(--spacing-spacing2);
+      gap: var(--spacing-2);
     }
   }
 </style>

@@ -1,0 +1,128 @@
+/* =========================================================================
+   Base global styles — replaces the old vanilla-extract globalStyle calls
+   in `src/styles/global.css.ts`. Resets, typography, focus, scrollbar.
+   All colors / spacing / radii / motion / layout reference the plain
+   CSS custom properties defined in `tokens.css`.
+   ========================================================================= */
+
+/* Resets --------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  background: var(--color-surface-bg);
+  color: var(--color-text);
+  font-feature-settings: "ss01", "cv11";
+  transition:
+    background-color var(--motion-dur) var(--motion-ease),
+    color var(--motion-dur) var(--motion-ease);
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Focus --------------------------------------------------------------- */
+
+:focus-visible {
+  outline: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid;
+  outline-color: var(--color-accent-primary);
+  outline-offset: 2px;
+  border-radius: var(--radii-xs);
+}
+
+/* Selection ----------------------------------------------------------- */
+
+::selection {
+  background-color: var(--color-accent-primary);
+  color: #ffffff;
+}
+
+/* Scrollbar ----------------------------------------------------------- */
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radii-full);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+  background-clip: padding-box;
+}
+
+/* Reveal-on-load ------------------------------------------------------ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--motion-dur-slow) var(--motion-ease-out),
+    transform var(--motion-dur-slow) var(--motion-ease-out);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

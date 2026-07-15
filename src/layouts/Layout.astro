@@ -1,7 +1,6 @@
 ---
-import '../styles/global.css';
-import '../styles/theme.css';
-import { darkThemeClass, lightThemeClass } from '../styles/theme.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
 import Sidebar from '../components/Sidebar/Sidebar.astro';
 import ThemeToggle from '../components/ThemeToggle/ThemeToggle.tsx';
 
@@ -19,7 +18,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="ru" class={darkThemeClass}>
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -42,19 +41,19 @@ const {
     />
 
     <!-- No-flash theme bootstrap: read stored preference BEFORE first paint. -->
-    <script is:inline define:vars={{ darkThemeClass, lightThemeClass }}>
+    <script is:inline>
       (function () {
         try {
           var stored = window.localStorage.getItem('theme');
           var theme = stored === 'light' || stored === 'dark' ? stored : 'dark';
-          var cls = theme === 'light' ? lightThemeClass : darkThemeClass;
           var root = document.documentElement;
-          root.classList.remove(darkThemeClass, lightThemeClass);
-          root.classList.add(cls);
+          if (theme === 'light') {
+            root.classList.add('light');
+          } else {
+            root.classList.remove('light');
+          }
         } catch (e) {
-          var root = document.documentElement;
-          root.classList.remove(lightThemeClass);
-          root.classList.add(darkThemeClass);
+          /* ignore */
         }
       })();
     </script>
@@ -142,18 +141,18 @@ const {
         min-width: 0;
         display: flex;
         flex-direction: column;
-        background: var(--color-surfaceBg);
+        background: var(--color-surface-bg);
         overflow-x: hidden;
       }
 
       .topbar {
         display: flex;
         align-items: center;
-        gap: var(--spacing-spacing2);
-        height: var(--layout-headerHeight);
-        padding: 0 var(--spacing-spacing5);
+        gap: var(--spacing-2);
+        height: var(--layout-header-height);
+        padding: 0 var(--spacing-5);
         border-bottom: 1px solid var(--color-border);
-        background: color-mix(in oklab, var(--color-surfaceBgAlt) 88%, transparent);
+        background: color-mix(in oklab, var(--color-surface-bg-alt) 88%, transparent);
         position: sticky;
         top: 0;
         z-index: 20;
@@ -164,8 +163,8 @@ const {
       .topbar-brand {
         display: flex;
         align-items: center;
-        gap: var(--spacing-spacing2);
-        color: var(--color-textStrong);
+        gap: var(--spacing-2);
+        color: var(--color-text-strong);
         font-family: var(--font-display);
         font-weight: 700;
         font-size: 16px;
@@ -176,11 +175,11 @@ const {
       .topbar-brand-mark {
         width: 30px;
         height: 30px;
-        border-radius: var(--radii-radiiSm);
+        border-radius: var(--radii-sm);
         background: linear-gradient(
           135deg,
-          var(--color-accentPrimary),
-          var(--color-accentSecondary)
+          var(--color-accent-primary),
+          var(--color-accent-secondary)
         );
         display: inline-flex;
         align-items: center;
@@ -188,13 +187,13 @@ const {
         color: #ffffff;
         font-weight: 800;
         font-size: 14px;
-        box-shadow: var(--shadow-shadowGlow);
+        box-shadow: var(--shadow-glow);
       }
 
       .topbar-actions {
         display: flex;
         align-items: center;
-        gap: var(--spacing-spacing2);
+        gap: var(--spacing-2);
       }
 
       .menu-trigger {
@@ -205,17 +204,17 @@ const {
         justify-content: center;
         background: transparent;
         border: 1px solid var(--color-border);
-        border-radius: var(--radii-radiiMd);
+        border-radius: var(--radii-md);
         color: var(--color-text);
         cursor: pointer;
         transition:
           background-color var(--motion-dur) var(--motion-ease),
           border-color var(--motion-dur) var(--motion-ease),
-          transform var(--motion-durFast) var(--motion-ease);
+          transform var(--motion-dur-fast) var(--motion-ease);
       }
       .menu-trigger:hover {
-        background: var(--color-surfaceCard);
-        border-color: var(--color-borderHover);
+        background: var(--color-surface-card);
+        border-color: var(--color-border-hover);
       }
       .menu-trigger:active {
         transform: scale(0.96);
@@ -241,16 +240,16 @@ const {
 
       .skip-link {
         position: absolute;
-        left: var(--spacing-spacing2);
-        top: var(--spacing-spacing2);
-        padding: var(--spacing-spacing1) var(--spacing-spacing2);
-        background: var(--color-accentPrimary);
+        left: var(--spacing-2);
+        top: var(--spacing-2);
+        padding: var(--spacing-1) var(--spacing-2);
+        background: var(--color-accent-primary);
         color: #ffffff;
-        border-radius: var(--radii-radiiSm);
+        border-radius: var(--radii-sm);
         font-weight: 600;
         font-size: 14px;
         transform: translateY(-150%);
-        transition: transform var(--motion-durFast) var(--motion-ease);
+        transition: transform var(--motion-dur-fast) var(--motion-ease);
         z-index: 100;
       }
       .skip-link:focus-visible {
@@ -259,27 +258,27 @@ const {
 
       .footer {
         border-top: 1px solid var(--color-border);
-        margin-top: var(--spacing-spacing8);
-        background: var(--color-surfaceBgAlt);
+        margin-top: var(--spacing-8);
+        background: var(--color-surface-bg-alt);
       }
       .footer-inner {
-        max-width: var(--layout-maxWidth);
+        max-width: var(--layout-max-width);
         margin: 0 auto;
-        padding: var(--spacing-spacing5);
+        padding: var(--spacing-5);
         display: flex;
         align-items: center;
-        gap: var(--spacing-spacing2);
-        color: var(--color-textMuted);
+        gap: var(--spacing-2);
+        color: var(--color-text-muted);
         font-size: 14px;
       }
       .footer-mark {
         width: 24px;
         height: 24px;
-        border-radius: var(--radii-radiiXs);
+        border-radius: var(--radii-xs);
         background: linear-gradient(
           135deg,
-          var(--color-accentPrimary),
-          var(--color-accentSecondary)
+          var(--color-accent-primary),
+          var(--color-accent-secondary)
         );
         display: inline-flex;
         align-items: center;
@@ -295,7 +294,7 @@ const {
           order: -1;
         }
         .topbar {
-          padding: 0 var(--spacing-spacing3);
+          padding: 0 var(--spacing-3);
         }
       }
     </style>

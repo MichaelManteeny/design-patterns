@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import * as styles from './ThemeToggle.css';
-import { darkThemeClass, lightThemeClass } from '../../styles/theme.css';
 
 type Theme = 'dark' | 'light';
 
@@ -21,8 +20,11 @@ function readInitialTheme(): Theme {
 function applyTheme(theme: Theme) {
   if (typeof document === 'undefined') return;
   const root = document.documentElement;
-  root.classList.remove(darkThemeClass, lightThemeClass);
-  root.classList.add(theme === 'dark' ? darkThemeClass : lightThemeClass);
+  if (theme === 'light') {
+    root.classList.add('light');
+  } else {
+    root.classList.remove('light');
+  }
 }
 
 const SunIcon = () => (

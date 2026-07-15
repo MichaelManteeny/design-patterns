@@ -32,14 +32,14 @@ const { items } = Astro.props;
 <style>
   .breadcrumbs {
     font-size: 14px;
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
   }
 
   .breadcrumbs ol {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--spacing-spacing1);
+    gap: var(--spacing-1);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -48,21 +48,21 @@ const { items } = Astro.props;
   .breadcrumbs li {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-spacing1);
+    gap: var(--spacing-1);
   }
 
   .breadcrumbs a {
-    color: var(--color-textMuted);
+    color: var(--color-text-muted);
     text-decoration: none;
     transition: color 0.15s ease;
   }
 
   .breadcrumbs a:hover {
-    color: var(--color-accentPrimary);
+    color: var(--color-accent-primary);
   }
 
   .breadcrumbs span[aria-current='page'] {
-    color: var(--color-textStrong);
+    color: var(--color-text-strong);
     font-weight: 600;
   }
 
