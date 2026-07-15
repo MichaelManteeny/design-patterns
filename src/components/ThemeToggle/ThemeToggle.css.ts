@@ -4,8 +4,11 @@ import { vars } from '../../styles/theme.css';
 export const toggle = style({
   display: 'inline-flex',
   alignItems: 'center',
-  gap: vars.spacing.spacing1,
-  padding: `${vars.spacing.spacing1} ${vars.spacing.spacing2}`,
+  justifyContent: 'center',
+  width: '40px',
+  height: '40px',
+  padding: 0,
+  gap: 0,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radii.radiiMd,
   background: vars.color.surfaceCard,
@@ -30,15 +33,9 @@ export const toggle = style({
   },
 });
 
-export const toggleLight = style({
-  borderColor: vars.color.accentSoft,
-  color: vars.color.accentDeep,
-});
+export const toggleLight = style({});
 
-export const toggleDark = style({
-  borderColor: vars.color.accentPrimary,
-  color: vars.color.accentPrimary,
-});
+export const toggleDark = style({});
 
 export const icon = style({
   width: '18px',
@@ -48,7 +45,7 @@ export const icon = style({
 });
 
 export const label = style({
-  whiteSpace: 'nowrap',
+  display: 'none',
 });
 
 globalStyle(`${toggle} svg`, {
