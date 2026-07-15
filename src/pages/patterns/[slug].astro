@@ -34,6 +34,15 @@ const CATEGORY_LABELS = {
   structural: 'Структурный',
   behavioral: 'Поведенческий',
 } as const;
+
+const CATEGORY_DESCRIPTIONS = {
+  creational: 'Шаблоны создания объектов',
+  structural: 'Шаблоны композиции классов и объектов',
+  behavioral: 'Шаблоны коммуникации между объектами',
+} as const;
+
+// Static, explicit viz map per slug — Astro's analyzer requires concrete
+// JSX usage of imported components, so we keep the if-chain look readable.
 ---
 
 <Layout
@@ -41,79 +50,177 @@ const CATEGORY_LABELS = {
   description={pattern.data.description}
   currentSlug={pattern.slug}
 >
-  <Breadcrumbs
-    items={[
-      { label: 'Главная', href: '/design-patterns/' },
-      { label: pattern.data.title },
-    ]}
-  />
+  <article class="pattern-page" data-category={pattern.data.category}>
+    <Breadcrumbs
+      items={[
+        { label: 'Главная', href: '/design-patterns/' },
+        { label: pattern.data.title },
+      ]}
+    />
 
-  <article class="pattern-page">
     <header class="pattern-header">
-      <span
-        class="category-badge"
-        data-category={pattern.data.category}
-      >
-        {CATEGORY_LABELS[pattern.data.category]}
-      </span>
+      <div class="pattern-eyebrow">
+        <span class="pattern-eyebrow-tag" data-category={pattern.data.category}>
+          {CATEGORY_LABELS[pattern.data.category]}
+        </span>
+        <span class="pattern-eyebrow-meta">
+          Паттерн #{pattern.data.order} · {CATEGORY_DESCRIPTIONS[pattern.data.category]}
+        </span>
+      </div>
       <h1 class="pattern-title">{pattern.data.title}</h1>
       <p class="pattern-description">{pattern.data.description}</p>
     </header>
 
     {pattern.slug === 'factory' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <FactoryViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <FactoryViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'builder' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <BuilderViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <BuilderViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'singleton' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <SingletonViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <SingletonViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'adapter' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <AdapterViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <AdapterViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'decorator' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <DecoratorViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <DecoratorViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'composite' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <CompositeViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <CompositeViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'observer' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <ObserverViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <ObserverViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'strategy' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <StrategyViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <StrategyViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'state' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <StateViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <StateViz client:visible />
+        </div>
       </section>
     )}
     {pattern.slug === 'command' && (
       <section class="visualization" aria-label="Интерактивная визуализация">
-        <CommandViz client:visible />
+        <div class="visualization-header">
+          <span class="visualization-label">
+            <span class="visualization-dot" aria-hidden="true"></span>
+            Интерактивная визуализация
+          </span>
+        </div>
+        <div class="visualization-body">
+          <CommandViz client:visible />
+        </div>
       </section>
     )}
 
     <section class="content">
       <Content />
     </section>
+
+    <nav class="pattern-nav" aria-label="Навигация по соседним паттернам">
+      <a class="back-link" href="/design-patterns/">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M19 12H5M12 19l-7-7 7-7"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            fill="none"
+          />
+        </svg>
+        Все паттерны
+      </a>
+    </nav>
   </article>
 </Layout>
 
@@ -121,104 +228,206 @@ const CATEGORY_LABELS = {
   .pattern-page {
     max-width: 880px;
     margin: 0 auto;
-    padding: var(--spacing-spacing6) var(--spacing-spacing5);
+    padding: var(--spacing-spacing5) var(--spacing-spacing5) var(--spacing-spacing6);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-spacing6);
   }
 
+  /* Header ----------------------------------------------------- */
   .pattern-header {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-spacing3);
+    padding: var(--spacing-spacing5) var(--spacing-spacing5);
+    border-radius: var(--radii-radiiXl);
+    background: linear-gradient(
+      135deg,
+      var(--color-surfaceCard) 0%,
+      var(--color-surfaceBgAlt) 100%
+    );
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-shadowSm);
+    position: relative;
+    overflow: hidden;
   }
 
-  .category-badge {
-    align-self: flex-start;
+  .pattern-header::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(
+      circle at center,
+      color-mix(in oklab, var(--card-accent, var(--color-accentPrimary)) 30%, transparent) 0%,
+      transparent 60%
+    );
+    pointer-events: none;
+    filter: blur(40px);
+    opacity: 0.55;
+  }
+
+  .pattern-page[data-category='creational'] {
+    --card-accent: var(--color-accentPrimary);
+  }
+  .pattern-page[data-category='structural'] {
+    --card-accent: var(--color-accentTeal);
+  }
+  .pattern-page[data-category='behavioral'] {
+    --card-accent: var(--color-accentViolet);
+  }
+
+  .pattern-eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-spacing2);
+    position: relative;
+    z-index: 1;
+  }
+
+  .pattern-eyebrow-tag {
     display: inline-flex;
     align-items: center;
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: var(--radii-radiiFull);
+    font-size: 11.5px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    border: 1px solid var(--color-border);
+    letter-spacing: 0.07em;
+    background: color-mix(in oklab, var(--card-accent) 15%, transparent);
+    border: 1px solid color-mix(in oklab, var(--card-accent) 40%, transparent);
+    color: var(--card-accent);
+  }
+
+  .pattern-eyebrow-meta {
+    font-size: 13px;
     color: var(--color-textMuted);
-    background: var(--color-surfaceBgAlt);
-  }
-
-  .category-badge[data-category='creational'] {
-    color: var(--color-accentPrimary);
-    border-color: var(--color-accentPrimary);
-  }
-
-  .category-badge[data-category='structural'] {
-    color: var(--color-success);
-    border-color: var(--color-success);
-  }
-
-  .category-badge[data-category='behavioral'] {
-    color: var(--color-warning);
-    border-color: var(--color-warning);
+    font-weight: 500;
   }
 
   .pattern-title {
     margin: 0;
-    font-size: clamp(32px, 5vw, 48px);
+    font-size: clamp(34px, 5.5vw, 52px);
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
     color: var(--color-textStrong);
+    position: relative;
+    z-index: 1;
   }
 
   .pattern-description {
     margin: 0;
-    font-size: clamp(16px, 2vw, 20px);
-    line-height: 1.5;
+    font-size: clamp(16px, 2vw, 19px);
+    line-height: 1.55;
     color: var(--color-textMuted);
+    max-width: 60ch;
+    position: relative;
+    z-index: 1;
   }
 
+  /* Visualization ---------------------------------------------- */
   .visualization {
     border-radius: var(--radii-radiiLg);
     background: var(--color-surfaceCard);
     border: 1px solid var(--color-border);
+    overflow: hidden;
+    box-shadow: var(--shadow-shadowMd);
+  }
+
+  .visualization-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-spacing2) var(--spacing-spacing4);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surfaceBgAlt);
+  }
+
+  .visualization-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-spacing1);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-textMuted);
+  }
+
+  .visualization-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-success);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-success) 30%, transparent);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .visualization-body {
     padding: var(--spacing-spacing4);
   }
 
+  /* Prose ------------------------------------------------------ */
   .content {
     color: var(--color-text);
-    line-height: 1.65;
-    font-size: 16px;
+    line-height: 1.7;
+    font-size: 16.5px;
   }
 
   .content :global(h2) {
     margin: var(--spacing-spacing6) 0 var(--spacing-spacing3);
-    font-size: 24px;
-    font-weight: 700;
+    padding-top: var(--spacing-spacing3);
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 800;
     color: var(--color-textStrong);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .content :global(h2:first-child) {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
   }
 
   .content :global(h3) {
     margin: var(--spacing-spacing5) 0 var(--spacing-spacing2);
-    font-size: 18px;
+    font-family: var(--font-display);
+    font-size: 19px;
     font-weight: 700;
     color: var(--color-textStrong);
+    letter-spacing: -0.015em;
   }
 
   .content :global(p) {
-    margin: 0 0 var(--spacing-spacing3);
+    margin: 0 0 var(--spacing-spacing4);
+    max-width: 65ch;
   }
 
   .content :global(ul),
   .content :global(ol) {
-    margin: 0 0 var(--spacing-spacing3);
+    margin: 0 0 var(--spacing-spacing4);
     padding-left: var(--spacing-spacing4);
+    max-width: 65ch;
   }
 
   .content :global(li) {
     margin-bottom: var(--spacing-spacing1);
+    padding-left: 4px;
+  }
+
+  .content :global(li)::marker {
+    color: var(--color-accentPrimary);
   }
 
   .content :global(pre) {
@@ -229,19 +438,23 @@ const CATEGORY_LABELS = {
     border-radius: var(--radii-radiiMd);
     overflow-x: auto;
     font-size: 13px;
-    line-height: 1.55;
+    line-height: 1.6;
+    font-family: var(--font-mono);
   }
 
   .content :global(code) {
-    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
   }
 
   .content :global(:not(pre) > code) {
-    padding: 2px 6px;
+    padding: 2px 8px;
     background: var(--color-surfaceBgAlt);
-    border-radius: var(--radii-radiiSm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radii-radiiXs);
     font-size: 13px;
     color: var(--color-accentPrimary);
+    font-weight: 600;
   }
 
   .content :global(strong) {
@@ -249,14 +462,64 @@ const CATEGORY_LABELS = {
     font-weight: 700;
   }
 
-  @media (max-width: 640px) {
+  .content :global(blockquote) {
+    margin: var(--spacing-spacing4) 0;
+    padding: var(--spacing-spacing3) var(--spacing-spacing4);
+    border-left: 3px solid var(--color-accentPrimary);
+    background: var(--color-surfaceBgAlt);
+    border-radius: 0 var(--radii-radiiMd) var(--radii-radiiMd) 0;
+    color: var(--color-textMuted);
+    font-style: italic;
+  }
+
+  /* Pattern navigation ----------------------------------------- */
+  .pattern-nav {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: var(--spacing-spacing3);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-spacing1);
+    padding: var(--spacing-spacing2) var(--spacing-spacing4);
+    background: var(--color-surfaceCard);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radii-radiiMd);
+    color: var(--color-textStrong);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      border-color var(--motion-dur) var(--motion-ease),
+      background-color var(--motion-dur) var(--motion-ease),
+      transform var(--motion-durFast) var(--motion-ease);
+  }
+  .back-link:hover {
+    border-color: var(--color-accentPrimary);
+    color: var(--color-accentPrimary);
+  }
+  .back-link svg {
+    width: 16px;
+    height: 16px;
+    transition: transform var(--motion-dur) var(--motion-easeOut);
+  }
+  .back-link:hover svg {
+    transform: translateX(-2px);
+  }
+
+  @media (max-width: 720px) {
     .pattern-page {
       padding: var(--spacing-spacing4) var(--spacing-spacing3);
       gap: var(--spacing-spacing5);
     }
-
-    .visualization {
-      padding: var(--spacing-spacing3);
+    .pattern-header {
+      padding: var(--spacing-spacing4) var(--spacing-spacing3);
+    }
+    .visualization-body {
+      padding: var(--spacing-spacing2);
     }
   }
 </style>
